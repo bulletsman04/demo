@@ -38,10 +38,10 @@ class BedRoom extends Component {
       },
     ],
   };
-  addDevice = (text) => {
+  addDevice = (deviceName) => {
     const device = {
       id: this.counter,
-      text,
+      deviceName,
     };
     this.counter++;
     console.log(device, this.counter);
