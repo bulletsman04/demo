@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import "../styles/MainPage.css";
-import Toggler from "../components/Toggler";
+
 
 class MainPage extends Component {
   state = {
@@ -31,7 +31,6 @@ class MainPage extends Component {
                 </NavLink>
                 <p className="members">3 family members have access</p>
                 <p className="devices">X Devices</p>
-                <Toggler onChange />
               </li>
             ))}
           </ul>

@@ -3,6 +3,8 @@ import { NavLink } from "react-router-dom";
 import "../styles/Room.css";
 import DeviceList from "../components/DeviceList";
 import AddDevice from "../components/AddDevice";
+import Toggler from "../components/Toggler";
+import { faBoxTissue } from "@fortawesome/free-solid-svg-icons";
 
 class LivingRoom extends Component {
   counter = 5;
@@ -38,6 +40,12 @@ class LivingRoom extends Component {
       },
     ],
   };
+
+  constructor(){
+    super();
+    this.roomOn = this.state.devices.findIndex(device => device.toggle === true) !== -1;
+  }
+
   addDevice = (deviceName) => {
     const device = {
       id: this.counter,
@@ -52,6 +60,28 @@ class LivingRoom extends Component {
 
     return true;
   };
+
+  handleDeviceToogleChangedHandler(id, currentToogleState) {
+    const changedDevices = this.state.devices;
+    changedDevices.find(device => device.id === id).toggle = currentToogleState;
+    this.roomOn = changedDevices.findIndex(device => device.toggle === true) !== -1;
+    this.setState((prevState) => ({
+      ...prevState,
+      devices: changedDevices,
+    }));
+  }
+
+  handleToogleClick() {
+    let changedDevices = this.state.devices;
+    this.roomOn = !this.roomOn;
+    changedDevices = changedDevices.map(device => device.alwaysRunning === true ? device : {...device, toggle: this.roomOn});
+    
+    this.setState((prevState) => ({
+      ...prevState,
+      devices: changedDevices,
+    }));
+  }
+
   render() {
     return (
       <div>
@@ -61,10 +91,11 @@ class LivingRoom extends Component {
           </NavLink>
           <h1>Living Room</h1>
           <p className="members">3 family members have access</p>
+          <Toggler checked = {this.roomOn} handleDeviceToogleChangedHandler = {this.handleToogleClick.bind(this)}/>
         </div>
         <div className="devicesList">
           <AddDevice add={this.addDevice} />
-          <DeviceList devices={this.state.devices} />
+          <DeviceList devices={this.state.devices} handleDeviceToogleChangedHandler = {this.handleDeviceToogleChangedHandler.bind(this)} />
         </div>
       </div>
     );
