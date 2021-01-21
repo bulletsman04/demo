@@ -1,0 +1,12 @@
+div.head {
+    padding: 40px 20px;
+    background-color:#f8833f ;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    min-height: 20vh;
+    color: #fff;
+}
+i {
+    color: #fff;
+    font-size: 26px;
+}
